@@ -210,9 +210,12 @@ const Income = () => {
   const fetchIncomes = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/income/get", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.get(
+        "https://expense-tracker-backend-eta-coral.vercel.app/api/v1/income/get",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
 
       if (res.data.stats) {
         setIncomes(res.data.income);
@@ -242,7 +245,7 @@ const Income = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/income/add",
+        "https://expense-tracker-backend-eta-coral.vercel.app/api/v1/income/add",
         {
           source: newIncome.source,
           amount: parseFloat(newIncome.amount),
@@ -270,7 +273,7 @@ const Income = () => {
     if (window.confirm("Are you sure you want to delete this income?")) {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/income/${incomeId}`,
+          `https://expense-tracker-backend-eta-coral.vercel.app/api/v1/income/${incomeId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -293,7 +296,7 @@ const Income = () => {
   const handleDownloadExcel = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/income/downloadexcel",
+        "https://expense-tracker-backend-eta-coral.vercel.app/api/v1/income/downloadexcel",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           responseType: "blob",
@@ -317,15 +320,18 @@ const Income = () => {
     fetchIncomes();
 
     axios
-      .get("http://localhost:5000/userInfo", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
+      .get(
+        "https://expense-tracker-backend-eta-coral.vercel.app/userInfo",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
       .then((res) => {
         if (res.data.status) {
           setUser({
             name: res.data.user?.fullName || "User",
             image: res.data.user?.profileImage
-              ? `http://localhost:5000${res.data.user.profileImage}`
+              ? `https://expense-tracker-backend-eta-coral.vercel.app${res.data.user.profileImage}`
               : null,
           });
         }

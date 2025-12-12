@@ -355,15 +355,18 @@ const DashboarHome = () => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        const res = await axios.get("http://localhost:5000/userInfo", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          "https://expense-tracker-backend-eta-coral.vercel.app/userInfo",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (res.data.status) {
           setUser({
             name: res.data.user?.fullName || "User",
             image: res.data.user?.profileImage
-              ? `http://localhost:5000${res.data.user.profileImage}`
+              ? `https://expense-tracker-backend-eta-coral.vercel.app${res.data.user.profileImage}`
               : null,
           });
         }
@@ -397,7 +400,7 @@ const DashboarHome = () => {
       formData.append("profileImage", file);
 
       const response = await axios.post(
-        "http://localhost:5000/update-profile-picture",
+        "https://expense-tracker-backend-eta-coral.vercel.app/update-profile-picture",
         formData,
         {
           headers: {
@@ -411,7 +414,7 @@ const DashboarHome = () => {
         // Update user state with new image
         setUser((prevUser) => ({
           ...prevUser,
-          image: `http://localhost:5000${
+          image: `https://expense-tracker-backend-eta-coral.vercel.app${
             response.data.user.profileImage
           }?t=${new Date().getTime()}`,
         }));
