@@ -328,7 +328,7 @@ const DashboarHome = () => {
       const token = localStorage.getItem("token");
       if (token) {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/dashboard/get",
+          "https://expense-tracker-backend-eta-coral.vercel.app/api/v1/expense",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
